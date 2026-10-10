@@ -1,7 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Apar Paudel | Computer Engineering Portfolio",
+  title: "Apar Paudel",
   description:
     "Computer Engineering student and frontend developer in Pokhara, Nepal. AI, machine learning and security-minded design.",
 };

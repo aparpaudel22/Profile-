@@ -67,7 +67,7 @@ export default function HomePage() {
 
       <header className="site-header">
         <a className="brand" href="#home">
-          <span>/</span>apar-paudel.com.np<span className="brand-dot">.</span>
+          <span>/</span>ap<span className="brand-dot">.</span>
         </a>
 
         <nav className={menuOpen ? "nav-links open" : "nav-links"}>
@@ -384,7 +384,7 @@ export default function HomePage() {
           </div>
 
           <footer className="site-footer">
-            <a className="brand" href="#home"><span>/</span> apar-paudel.com.np<span className="brand-dot">.</span></a>
+            <a className="brand" href="#home"><span>/</span> ap<span className="brand-dot">.</span></a>
             <span>©2026 Apar Paudel | 🕸️Every thread tells a story. </span>
             <a href="#home">↑</a>
           </footer>
