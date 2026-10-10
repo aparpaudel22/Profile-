@@ -85,5 +85,5 @@ export const hobbies = [
 export const playlist = [
   { title: "Sunflower", artist: "Post Malone", src: "/music/Post Malone, Swae Lee - Sunflower (Spider-Man Into the Spider-Verse).mp3", cover: "/music/covers/sunflower.jpg.png"},
   { title: "सिरानमा फोटो छ", artist: "Nepathya", src: "/music/Nepathya - Siran Ma Photo Chha (सिरानमा फोटो छ).mp3", cover: "/music/covers/AmritGurung.png"},
-  { title: "Yeh Jo Halka Suroor Hai", artist: "Nusrat Fateh Ali Khan", src: "/music/Yeh Jo Halka Halka Suroor Hai (Lyric Video) Nusrat Fateh Ali Khan - OSA.mp3", cover: "/music/covers/yehjohalkahalka.png"},
+  { title: "Yeh Jo Halka Halka Suroor Hai", artist: "Nusrat Fateh Ali Khan", src: "/music/Yeh Jo Halka Halka Suroor Hai (Lyric Video) Nusrat Fateh Ali Khan - OSA.mp3", cover: "/music/covers/yehjohalkahalka.png"},
 ];
