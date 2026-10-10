@@ -357,7 +357,7 @@ export default function SwingGame() {
         ctx.fillStyle = "#e6edf6";
         ctx.textAlign = "center";
         ctx.font = "600 15px sans-serif";
-        ctx.fillText(g.over ? "Signal lost — try again?" : "Ready when you are", w / 2, h / 2);
+        ctx.fillText(g.over ? "Signal lost — try again?" : "Start , When you are ready! ", w / 2, h / 2);
       }
     }
 

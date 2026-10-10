@@ -460,7 +460,7 @@ h2 em {
 .audio-controls { flex-wrap: wrap; margin-top: 12px; }
 .play-button { border-color: var(--cyan); border-radius: 50%; background: var(--cyan); color: var(--bg); }
 .volume-label { margin-left: auto; color: var(--muted); font-size: 9px; }
-#volume-control { width: 85px; accent-color: var(--cyan); }
+#volume-control { width: 85px; accent-color: var(--cyan); touch-action: pan-x; }
 .audio-status { margin-bottom: 0; }
 audio { display: none; }
 
@@ -528,6 +528,7 @@ audio { display: none; }
     padding: 10px 20px 18px;
     border-bottom: 1px solid var(--line);
     background: rgba(5, 8, 15, .97);
+     #volume-control { width: 130px; }
   }
   .nav-links.open { display: flex; flex-direction: column; }
   .nav-links a { padding: 11px 0; border-bottom: 1px solid var(--line); }

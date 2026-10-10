@@ -13,28 +13,65 @@ function formatTime(seconds) {
 
 export default function MusicPlayer() {
   const audioRef = useRef(null);
-  const autoplayRef = useRef(false); // "start playing as soon as the new track is ready"
+  const autoplayRef = useRef(false); // start playing as soon as the new track is ready
+  const ctxRef = useRef(null);       // Web Audio context
+  const gainRef = useRef(null);      // volume control that also works on iPhone
   const [active, setActive] = useState(0);
   const [playing, setPlaying] = useState(false);
-  const [muted, setMuted] = useState(false);
   const [volume, setVolume] = useState(0.75);
   const [time, setTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [status, setStatus] = useState("Add your MP3 files to public/music to start listening.");
 
+  // Apply volume: through the gain node if it exists, otherwise directly.
   useEffect(() => {
-    if (audioRef.current) audioRef.current.volume = volume;
+    if (gainRef.current) gainRef.current.gain.value = volume;
+    else if (audioRef.current) audioRef.current.volume = volume;
   }, [volume]);
+
+  // Must be called from a tap/click so mobile browsers allow audio.
+  function unlockAudio() {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (!gainRef.current) {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (AC) {
+        try {
+          const ctx = new AC();
+          const source = ctx.createMediaElementSource(audio);
+          const gain = ctx.createGain();
+          gain.gain.value = volume;
+          source.connect(gain);
+          gain.connect(ctx.destination);
+          audio.volume = 1; // the gain node controls loudness from now on
+          ctxRef.current = ctx;
+          gainRef.current = gain;
+        } catch {
+          // fall back to audio.volume
+        }
+      }
+    }
+
+    if (ctxRef.current && ctxRef.current.state === "suspended") {
+      ctxRef.current.resume().catch(() => {});
+    }
+  }
 
   function playAudio() {
     const audio = audioRef.current;
     if (!audio) return;
+    if (ctxRef.current && ctxRef.current.state === "suspended") {
+      ctxRef.current.resume().catch(() => {});
+    }
     audio.play().catch(() => {
       setStatus("Could not play this track. Press ▶ to start it.");
     });
   }
 
   function selectTrack(index, autoplay = false) {
+    unlockAudio();
+
     const next = (index + playlist.length) % playlist.length;
     const audio = audioRef.current;
 
@@ -51,10 +88,11 @@ export default function MusicPlayer() {
     setTime(0);
     setDuration(0);
     setStatus(autoplay ? `Loading: ${playlist[next].title}` : `Selected: ${playlist[next].title}`);
-    // React updates the <audio src> itself; onCanPlay below starts playback.
+    // React updates the <audio src>; onCanPlay below starts playback.
   }
 
   function toggle() {
+    unlockAudio();
     const audio = audioRef.current;
     if (!audio) return;
     if (audio.paused) playAudio();
@@ -133,6 +171,7 @@ export default function MusicPlayer() {
         ref={audioRef}
         src={track.src}
         preload="auto"
+        playsInline
         onCanPlay={() => {
           if (autoplayRef.current) {
             autoplayRef.current = false;
@@ -199,18 +238,6 @@ export default function MusicPlayer() {
           onClick={() => selectTrack(active + 1, true)}
         >
           →|
-        </button>
-
-        <button
-          className="small-button"
-          type="button"
-          aria-label={muted ? "Unmute" : "Mute"}
-          onClick={() => {
-            if (audioRef.current) audioRef.current.muted = !muted;
-            setMuted((m) => !m);
-          }}
-        >
-          {muted ? "×" : "♫"}
         </button>
 
         <label className="volume-label" htmlFor="volume-control">VOL</label>
