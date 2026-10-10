@@ -418,6 +418,8 @@ export default function SwingGame() {
     function onUp() { release(); }
 
     resize();
+    const ro = new ResizeObserver(() => resize());
+    ro.observe(canvas);
     window.addEventListener("resize", resize);
     window.addEventListener("keydown", onKeyDown);
     window.addEventListener("keyup", onKeyUp);
@@ -427,6 +429,7 @@ export default function SwingGame() {
     canvas.addEventListener("pointercancel", onUp);
 
     return () => {
+      ro.disconnect();
       cancelAnimationFrame(g.raf);
       window.removeEventListener("resize", resize);
       window.removeEventListener("keydown", onKeyDown);

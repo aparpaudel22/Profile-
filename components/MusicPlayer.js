@@ -222,14 +222,14 @@ export default function MusicPlayer() {
             else selectTrack(active - 1, true);
           }}
         >
-          |←
+          ←
         </button>
 
         <button className="play-button" type="button" aria-label={playing ? "Pause" : "Play"} onClick={toggle}>
           {playing ? "Ⅱ" : "▶"}
         </button>
 
-        <button className="small-button" type="button" aria-label="Stop" onClick={stop}>■</button>
+        
 
         <button
           className="small-button"
@@ -237,7 +237,7 @@ export default function MusicPlayer() {
           aria-label="Next track"
           onClick={() => selectTrack(active + 1, true)}
         >
-          →|
+          →
         </button>
 
         <label className="volume-label" htmlFor="volume-control">VOL</label>
