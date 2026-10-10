@@ -94,7 +94,7 @@ export default function HomePage() {
       <main>
         {/* HERO */}
         <section className="hero" id="home">
-          <CornerWeb className="web-tl" />
+          
           <CornerWeb className="web-br" />
 
           <div className="hero-inner">
